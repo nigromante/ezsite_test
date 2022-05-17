@@ -1,0 +1,16 @@
+{
+    "name": "nigromante/ezsite_test",
+    "description": "test for ezsite PHP minimal MVC framework",
+    "authors": [
+        {
+            "name": "Julian Vidal",
+            "email": "julianvidal@live.cl"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "nigromante/ezsite": "^2.12"
+    },
+    "autoload": {
+    }
+}

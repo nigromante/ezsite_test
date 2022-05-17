@@ -3,8 +3,6 @@ Options +FollowSymLinks +ExecCGI
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteRule ^ezsite_wrapper.php$ - [F,L]
-
     RewriteBase /
     RewriteRule ^index\.php$ - [L]
 

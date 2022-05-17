@@ -1,6 +1,6 @@
 <?php 
     include "routes.php" ; 
-    include "databases.php" ; 
+    include_once "databases.php" ; 
 
     class ConfigMain extends Config {
      

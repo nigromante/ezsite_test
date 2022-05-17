@@ -5,7 +5,7 @@ use nigromante\EzSite\ezTemplate;
 	$time_inicio = round(microtime(true) * 1000); 
 
 
-    include __DIR__ . "/../../vendor/autoload.php" ; 
+    include __DIR__ . "/../vendor/autoload.php" ; 
     include  "ezsite_wrapper.php" ;
 
 

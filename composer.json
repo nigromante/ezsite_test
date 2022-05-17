@@ -9,7 +9,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "nigromante/ezsite": "^2.12"
+        "nigromante/ezsite": "dev-main"
     },
     "autoload": {
     }

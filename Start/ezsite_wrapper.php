@@ -1,0 +1,68 @@
+<?php
+function get_client_ip() {
+    $ipaddress = '';
+     if (getenv('HTTP_CLIENT_IP'))
+         $ipaddress = getenv('HTTP_CLIENT_IP');
+     else if(getenv('HTTP_X_FORWARDED_FOR'))
+         $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+     else if(getenv('HTTP_X_FORWARDED'))
+         $ipaddress = getenv('HTTP_X_FORWARDED');
+     else if(getenv('HTTP_FORWARDED_FOR'))
+         $ipaddress = getenv('HTTP_FORWARDED_FOR');
+     else if(getenv('HTTP_FORWARDED'))
+         $ipaddress = getenv('HTTP_FORWARDED');
+     else if(getenv('REMOTE_ADDR'))
+         $ipaddress = getenv('REMOTE_ADDR');
+     else
+         $ipaddress = 'UNKNOWN';
+
+     return $ipaddress;
+ }
+
+
+
+class SessionManager      extends \nigromante\EzSite\SessionManager {}
+class Session      extends \nigromante\EzSite\Session {}
+class Logger      extends \nigromante\EzSite\Logger {}
+class EzSite      extends \nigromante\EzSite\Main {}
+class Config      extends \nigromante\EzSite\Config {}
+class Request     extends \nigromante\EzSite\Request {}
+class Response    extends \nigromante\EzSite\Response {}
+class Controller  extends \nigromante\EzSite\Controller {}
+
+
+define( 'DS'          , '/' ) ;
+define( 'DIR_ROOT'          , dirname( dirname(__FILE__ )) ) ;
+define( 'DIR_CONTROLLER'    , DIR_ROOT . DS . "Controller" ) ;
+define( 'DIR_VIEW'          , DIR_ROOT . DS . "View" ) ;
+define( 'DIR_MODEL'         , DIR_ROOT . DS . "Model" ) ;
+define( 'DIR_LIB'           , DIR_ROOT . DS . "Lib" ) ;
+define( 'DIR_TMP'           , DIR_ROOT . DS . "Tmp" ) ;
+define( 'DIR_LOGS'          , DIR_TMP  . DS . "Logs" ) ;
+define( 'DIR_CONFIG'        , DIR_ROOT . DS . "Config" ) ;
+
+// 
+include DIR_CONFIG . DS . "ConfigMain.php" ; 
+$configMain = new ConfigMain() ;
+$IpCliente = get_client_ip()  ; 
+
+date_default_timezone_set('America/Santiago');
+
+
+$handler_session = new SessionManager( $configMain->getDatabase( 'session' ) , $IpCliente );
+session_set_save_handler(
+    [ $handler_session, 'open' ],
+    [ $handler_session, 'close' ],
+    [ $handler_session, 'read' ],
+    [ $handler_session, 'write' ],
+    [ $handler_session, 'destroy' ] ,
+    [ $handler_session, 'gc' ]
+);
+
+session_name( "example" ) ;    
+session_start();
+session_gc() ; 
+
+$sessionInfo = $handler_session->info( session_id() ) ; 
+
+?> 
